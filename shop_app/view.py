@@ -8,9 +8,8 @@ from . import models, schemas
 
 def get_products(db: Session, skip: int = 0, limit: int = 20, search: str = "", cat: List[int] = None,
                  store: List[int] = None):
-    search_term = f"%{search}%".lower()
+    search_term = f"%{search.lower()}%"
     query = db.query(models.Product).join(models.Item).filter(models.Product.active.is_(True))
-
     if search:
         query = query.filter(func.lower(models.Item.name).like(search_term))
 
