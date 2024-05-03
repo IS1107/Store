@@ -1,6 +1,7 @@
 from typing import List
 
 from fastapi import FastAPI, Depends, Query
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
 from . import view, models, schemas
@@ -10,6 +11,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 def get_db():
     db = SessionLocal()
